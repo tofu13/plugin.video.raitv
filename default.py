@@ -103,7 +103,7 @@ def show_tg_root():
             addDirectoryItem({"mode": "get_last_content_by_tag",
                 "tags": search.newsArchives[k]}, liStyle)
     liStyle = xbmcgui.ListItem("TGR")
-    liStyle.setArt({"thumb": "http://www.tgr.rai.it/dl/tgr/mhp/immagini/splash.png"})
+    liStyle.setArt({"thumb": "https://www.tgr.rai.it/dl/tgr/mhp/immagini/splash.png"})
     addDirectoryItem({"mode": "tgr"}, liStyle)  
     xbmcplugin.addSortMethod(handle, xbmcplugin.SORT_METHOD_LABEL)
     xbmcplugin.endOfDirectory(handle=handle, succeeded=True)
@@ -252,6 +252,9 @@ def play(url, pathId="", radio_stream='0', srt=[]):
                 item.setProperty('inputstream.adaptive.manifest_type', 'hls')
         if srt:
             item.setSubtitles(srt)
+            item.setProperty("subtitles.translate.file",srt[0])
+            item.setProperty("subtitles.translate.type","srt")
+            item.setProperty("subtitles.translate.orig_lang","it")
 
         xbmc.log("*******************************************************************************************************************") 
         xbmcplugin.setResolvedUrl(handle=handle, succeeded=True, listitem=item)
@@ -298,7 +301,7 @@ def show_radio_stations():
     for station in radio_stations:
         ch = station["channel"]
         liStyle = xbmcgui.ListItem(ch["name"])
-        liStyle.setArt({"thumb": "http://rai.it" + station["images"]["square"]})
+        liStyle.setArt({"thumb": "https://rai.it" + station["images"]["square"]})
         liStyle.setInfo("music", {})
         if 'contentUrl' in station['audio']:
             addLinkItem({"mode": "play", "url": station["audio"]["contentUrl"], "radio": '1'}, liStyle)
@@ -441,7 +444,7 @@ def show_replay_radio_channels(date):
         ch = station["channel"]
         xbmc.log(str(ch))
         liStyle = xbmcgui.ListItem(ch["name"])
-        liStyle.setArt({"thumb": "http://rai.it" + station["images"]["square"]})
+        liStyle.setArt({"thumb": "https://rai.it" + station["images"]["square"]})
         addDirectoryItem({"mode": "replay",
             "media": "radio",
             "channel_id": ch["palinsesto_url"],
@@ -582,14 +585,14 @@ def show_ondemand_root():
                     
                     if m[0]=="fiction":
                         liStyle = xbmcgui.ListItem("Serie italiane")
-                        liStyle.setArt({"thumb": raiplay.getThumbnailUrl("http://www.rai.it/dl/img/2018/06/04/1528107006058_ico-fiction.png")})
+                        liStyle.setArt({"thumb": raiplay.getThumbnailUrl("https://www.rai.it/dl/img/2018/06/04/1528107006058_ico-fiction.png")})
                         addDirectoryItem({"mode": "ondemand", "path_id": "/raiplay/tipologia/serieitaliane/index.json", "sub_type": item["sub-type"]}, liStyle)
                         liStyle = xbmcgui.ListItem("Original")
-                        liStyle.setArt({"thumb": raiplay.getThumbnailUrl("http://www.rai.it/dl/img/2018/06/04/1528107006058_ico-fiction.png")})
+                        liStyle.setArt({"thumb": raiplay.getThumbnailUrl("https://www.rai.it/dl/img/2018/06/04/1528107006058_ico-fiction.png")})
                         addDirectoryItem({"mode": "ondemand_subhome", "path_id": "/raiplay/tipologia/original/index.json", "sub_type": item["sub-type"]}, liStyle)
                     elif m[0]=="serietv":
                         liStyle = xbmcgui.ListItem("Serie internazionali")
-                        liStyle.setArt({"thumb": raiplay.getThumbnailUrl("http://www.rai.it/dl/img/2018/06/04/1528107006058_ico-fiction.png")})
+                        liStyle.setArt({"thumb": raiplay.getThumbnailUrl("https://www.rai.it/dl/img/2018/06/04/1528107006058_ico-fiction.png")})
                         addDirectoryItem({"mode": "ondemand_subhome", "path_id": "/raiplay/tipologia/serieinternazionali/index.json", "sub_type": item["sub-type"]}, liStyle)
                     elif m[0]=="bambini" or m[0]=="bambini/":
                         liStyle = xbmcgui.ListItem("Bambini")
